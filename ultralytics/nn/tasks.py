@@ -1,5 +1,6 @@
 # Ultralytics 🚀 AGPL-3.0 License - https://ultralytics.com/license
-from .Attmodules import *
+from .Attmodules import ATTN_MODELS
+#from .Attmodules import CBAM
 import contextlib
 import pickle
 import re
@@ -1664,21 +1665,25 @@ def parse_model(d, ch, verbose=True):
         }
     )
 
-    attn_modules = frozenset({CBAM})
+    attn_modules = frozenset(ATTN_MODELS.values())
 
     for i, (f, n, m, args) in enumerate(d["backbone"] + d["head"]):  # from, number, module, args
-        m = (
-            getattr(torch.nn, m[3:])
-            if "nn." in m
-            else getattr(__import__("torchvision").ops, m[16:])
-            if "torchvision.ops." in m
-            else globals()[m]
-        )  # get module
+        if isinstance(m, str):
+            if m.startswith("nn."):
+                m = getattr(torch.nn, m[3:])
+            elif m.startswith("torchvision.ops."):
+                m = getattr(__import__("torchvision").ops, m[16:])
+            elif m in ATTN_MODELS:
+                m = ATTN_MODELS[m]
+            else:
+                m = globals()[m]
+                
         for j, a in enumerate(args):
             if isinstance(a, str):
                 with contextlib.suppress(ValueError):
                     args[j] = locals()[a] if a in locals() else ast.literal_eval(a)
         n = n_ = max(round(n * depth), 1) if n > 1 else n  # depth gain
+
         if m in base_modules:
             c1, c2 = ch[f], args[0]
             if c2 != nc:  # if c2 not equal to number of classes (i.e. for Classify() output)
