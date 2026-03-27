@@ -1,7 +1,8 @@
 from .CBAM import CBAM
-
+from .ECA import ECA
 ATTN_MODELS = {
-    "CBAM": CBAM
+    "CBAM": CBAM,
+    "ECA": ECA
 }
 
-__all__ = ["CBAM"]
+__all__ = ["CBAM", "ECA"]
