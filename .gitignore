@@ -145,7 +145,7 @@ dmypy.json
 runs/
 wandb/
 .DS_Store
-TestData/
+TestData/ 
 
 # Neural Network weights -----------------------------------------------------------------------------------------------
 weights/
