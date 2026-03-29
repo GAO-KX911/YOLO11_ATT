@@ -7,4 +7,4 @@ ATTN_MODELS = {
     "CA": CA
 }
 
-__all__ = ["CBAM", "ECA"]
+__all__ = ["CBAM", "ECA", "CA"]
