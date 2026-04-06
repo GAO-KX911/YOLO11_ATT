@@ -19,6 +19,7 @@ class AAGF(nn.Module):
         super().__init__()
         self.low_proj = _conv_bn_act(c_low, c_out, k=1, p=0)
         self.high_proj = _conv_bn_act(c_high, c_out, k=1, p=0)
+        self.inter_proj = _conv_bn_act(c_out, c_out, k=1, p=0)
 
         gate_channels = max(8, int(gate_channels))
         self.gate_net = nn.Sequential(
@@ -33,12 +34,12 @@ class AAGF(nn.Module):
         high = self.high_proj(high)
 
         diff = torch.abs(low - high)
-        inter = low * high
+        inter = self.inter_proj(low * high)
 
         gates = torch.sigmoid(self.gate_net(torch.cat((low, high, diff, inter), dim=1)))
         gate_low, gate_high = gates.chunk(2, dim=1)
 
-        low_refined = gate_low * low
-        high_refined = gate_high * high
+        low_refined = low * (1 + gate_low)
+        high_refined = high * (1 + gate_high)
         fused = torch.cat((low_refined, high_refined, inter), dim=1)
         return self.out_conv(fused)
