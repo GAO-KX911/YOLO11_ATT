@@ -4,6 +4,7 @@ from .CA import CA
 from .CARAFE import CARAFE
 from .ASFFLite import ASFFLite
 from .AAGF import AAGF
+from .P2DRFG import P2DRFG
 ATTN_MODELS = {
     "CBAM": CBAM,
     "ECA": ECA,
@@ -11,4 +12,4 @@ ATTN_MODELS = {
     "CARAFE": CARAFE,
 }
 
-__all__ = ["CBAM", "ECA", "CA", "CARAFE", "ASFFLite", "AAGF"]
+__all__ = ["CBAM", "ECA", "CA", "CARAFE", "ASFFLite", "AAGF", "P2DRFG"]

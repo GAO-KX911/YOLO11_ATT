@@ -1,5 +1,5 @@
 # Ultralytics 🚀 AGPL-3.0 License - https://ultralytics.com/license
-from .Attmodules import AAGF, ASFFLite, ATTN_MODELS
+from .Attmodules import AAGF, ASFFLite, ATTN_MODELS, P2DRFG
 #from .Attmodules import CBAM
 import contextlib
 import pickle
@@ -1730,6 +1730,11 @@ def parse_model(d, ch, verbose=True):
             c2 = args[0]
             c2 = make_divisible(min(c2, max_channels) * width, 8)
             args = [c_low, c_high, c2, *args[1:]]
+        elif m is P2DRFG:
+            c_low, c_high, c_main = [ch[x] for x in f]
+            c2 = args[0]
+            c2 = make_divisible(min(c2, max_channels) * width, 8)
+            args = [c_low, c_high, c_main, c2, *args[1:]]
 
         elif m in attn_modules:
             c2 = ch[f] if isinstance(f, int) else ch[f[-1]]
