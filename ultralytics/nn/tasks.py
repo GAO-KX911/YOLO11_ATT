@@ -1,5 +1,6 @@
 # Ultralytics 🚀 AGPL-3.0 License - https://ultralytics.com/license
 from .Attmodules import AAGF, ASFFLite, ATTN_MODELS, P2DRFG
+from .Convmodules import CONV_MODELS, RFEM
 #from .Attmodules import CBAM
 import contextlib
 import pickle
@@ -1643,6 +1644,7 @@ def parse_model(d, ch, verbose=True):
             SCDown,
             C2fCIB,
             A2C2f,
+            RFEM,
         }
     )
     repeat_modules = frozenset(  # modules with 'repeat' arguments
@@ -1675,6 +1677,8 @@ def parse_model(d, ch, verbose=True):
                 m = getattr(__import__("torchvision").ops, m[16:])
             elif m in ATTN_MODELS:
                 m = ATTN_MODELS[m]
+            elif m in CONV_MODELS:
+                m = CONV_MODELS[m]
             else:
                 m = globals()[m]
                 
