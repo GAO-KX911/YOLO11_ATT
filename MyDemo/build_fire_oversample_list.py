@@ -4,7 +4,6 @@ import argparse
 import random
 from pathlib import Path
 
-
 IMG_SUFFIXES = {".jpg", ".jpeg", ".png", ".bmp", ".tif", ".tiff", ".webp"}
 
 
@@ -66,7 +65,7 @@ def main() -> None:
     print(f"images={len(image_paths)}")
     print(f"target_images={total_target_images}")
     print(f"repeat_factor={args.repeat_factor}")
-    print(f"extra_copies={extra_copies}") 
+    print(f"extra_copies={extra_copies}")
     print(f"total_entries={len(lines)}")
     print(f"saved_to={args.out}")
 
