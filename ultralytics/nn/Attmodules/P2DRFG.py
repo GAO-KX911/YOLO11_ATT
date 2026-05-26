@@ -27,8 +27,7 @@ class DWConvBlock(nn.Module):
 
 
 class P2DRFG(nn.Module):
-    """
-    P2 Detail Residual Fusion Guidance.
+    """P2 Detail Residual Fusion Guidance.
 
     Inputs:
         low:  backbone P2 feature
