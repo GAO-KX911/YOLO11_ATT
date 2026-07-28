@@ -1,5 +1,5 @@
 import torch
-import torch.nn as nn
+from torch import nn
 
 
 def _conv_bn_act(c1, c2, k=1, s=1, p=None):
