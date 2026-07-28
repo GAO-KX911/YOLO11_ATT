@@ -4,7 +4,6 @@ import argparse
 import random
 from pathlib import Path
 
-
 IMG_SUFFIXES = {".jpg", ".jpeg", ".png", ".bmp", ".tif", ".tiff", ".webp"}
 
 
@@ -58,7 +57,9 @@ def get_image_flags(label_path: Path, fire_class_id: int, small_area_thres: floa
     return has_fire, has_small
 
 
-def choose_repeat_factor(has_fire: bool, has_small: bool, fire_factor: float, small_factor: float, both_factor: float) -> float:
+def choose_repeat_factor(
+    has_fire: bool, has_small: bool, fire_factor: float, small_factor: float, both_factor: float
+) -> float:
     if has_fire and has_small:
         return both_factor
     if has_fire:
