@@ -1,4 +1,5 @@
 import torch
+
 from ultralytics import YOLO
 
 model = YOLO("ultralytics/cfg/models/11/Att_yaml/yolo11-P2-CARAFE-P2DRFG.yaml").model
