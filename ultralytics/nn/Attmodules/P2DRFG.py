@@ -1,5 +1,5 @@
 import torch
-import torch.nn as nn
+from torch import nn
 
 
 def _conv_bn_act(c1, c2, k=1, s=1, p=None, g=1):
@@ -27,8 +27,7 @@ class DWConvBlock(nn.Module):
 
 
 class P2DRFG(nn.Module):
-    """
-    P2 Detail Residual Fusion Guidance.
+    """P2 Detail Residual Fusion Guidance.
 
     Inputs:
         low:  backbone P2 feature

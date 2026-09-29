@@ -5,16 +5,14 @@ from pathlib import Path
 
 import cv2
 import yaml
-from ultralytics import YOLO
 
+from ultralytics import YOLO
 
 IMG_EXTS = {".jpg", ".jpeg", ".png", ".bmp", ".webp"}
 
 
 def build_parser():
-    parser = argparse.ArgumentParser(
-        description="逐张预测验证集，筛选漏检、小目标和小目标漏检样本。"
-    )
+    parser = argparse.ArgumentParser(description="逐张预测验证集，筛选漏检、小目标和小目标漏检样本。")
     add_arg = parser.add_argument
     add_arg(
         "--weights",
@@ -220,7 +218,7 @@ def draw_boxes(image, gts, preds, missed_indices, class_names):
     vis = image.copy()
 
     for idx, gt in enumerate(gts):
-        x1, y1, x2, y2 = [int(round(v)) for v in gt["box"]]
+        x1, y1, x2, y2 = [round(v) for v in gt["box"]]
         color = (0, 255, 0)
         thickness = 2
         if idx in missed_indices:
@@ -233,7 +231,7 @@ def draw_boxes(image, gts, preds, missed_indices, class_names):
         cv2.putText(vis, label, (x1, max(y1 - 5, 0)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 1)
 
     for pred in preds:
-        x1, y1, x2, y2 = [int(round(v)) for v in pred["box"]]
+        x1, y1, x2, y2 = [round(v) for v in pred["box"]]
         label = f"{class_names.get(pred['cls'], pred['cls'])}:{pred['conf']:.2f}"
         cv2.rectangle(vis, (x1, y1), (x2, y2), (0, 0, 255), 2)
         cv2.putText(vis, label, (x1, max(y1 - 5, 0)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1)
